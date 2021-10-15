@@ -23,9 +23,12 @@ var personagemObj;
 
 var obstaculo = [];
 
+var pontos;
+
 function inicioJogo(){
   areaJogo.start();
   personagemObj = new componente("#FFF", 10, 120, 30, 30);
+  pontos = new componente("#FFF", 20, 30, "Consolas", "17px", "texto");
 }
 
 let areaJogo = {
@@ -56,18 +59,27 @@ function contarIntervalo(n){
   }
 }
 
-function componente(cor, x, y, altura, largura){
+function componente(cor, x, y, altura, largura, tipo){
+  this.tipo = tipo,
   this.altura = altura,
   this.largura = largura,
   this.x = x,
   this.y = y,
   this.velocidadeX = 0,
   this.velocidadeY = 0,
+  this.texto = 0;
 
   this.atualiza = function(){
     contexto = areaJogo.context;
-    contexto.fillStyle = cor;
-    contexto.fillRect(this.x, this.y, this.altura, this.largura);
+
+    if(this.tipo == "texto"){
+      contexto.font = this.largura + " " + this.altura;
+      contexto.fillStyle = cor;
+      contexto.fillText(this.texto, this.x, this.y);
+    }else{
+      contexto.fillStyle = cor,
+      contexto.fillRect(this.x, this.y, this.altura, this.largura);
+    }
   },
 
   this.novaPosicao = function(){
@@ -130,6 +142,8 @@ function atualizaAreaJogo(){
     obstaculo[i].atualiza();
   }
 
+  pontos.texto = "Pontos: " + areaJogo.frame;
+  pontos.atualiza();
   personagemObj.novaPosicao();
   personagemObj.atualiza();
 }
