@@ -1,6 +1,18 @@
 window.onload = function(){
   inicioJogo();
 
+  if(localStorage.getItem(1) == "a"){
+    document.querySelector("body").style.backgroundColor = "black";
+    document.querySelector("canvas").style.backgroundColor = "black";
+  };
+  if(localStorage.getItem(1) == "b"){
+    document.querySelector("body").style.backgroundColor = "white";
+    document.querySelector("canvas").style.backgroundColor = "white";
+  };
+
+  var estado = "a";
+  localStorage.setItem(1, estado);
+
   document.querySelector("#subir").addEventListener("click", function(){
     subir();
     setTimeout(parar, 1000);
@@ -17,6 +29,22 @@ window.onload = function(){
     esquerda();
     setTimeout(parar, 1000);
   });
+  document.querySelector("#claro").addEventListener("click", function(){
+    document.querySelector("body").style.backgroundColor = "white";
+    document.querySelector("canvas").style.backgroundColor = "white";
+    if(estado == "a"){
+      estado = "b";
+    };
+    localStorage.setItem(1, estado);
+  });
+  document.querySelector("#escuro").addEventListener("click", function(){
+    document.querySelector("body").style.backgroundColor = "black";
+    document.querySelector("canvas").style.backgroundColor = "black";
+    if(estado == "b"){
+      estado = "a";
+    };
+    localStorage.setItem(1, estado);
+  });
 }
 
 var personagemObj;
@@ -27,8 +55,8 @@ var pontos;
 
 function inicioJogo(){
   areaJogo.start();
-  personagemObj = new componente("#FFF", 10, 120, 30, 30);
-  pontos = new componente("#FFF", 20, 30, "Consolas", "17px", "texto");
+  personagemObj = new componente("red", 10, 120, 30, 30);
+  pontos = new componente("red", 20, 30, "Consolas", "17px", "texto");
 }
 
 let areaJogo = {
