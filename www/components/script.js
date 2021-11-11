@@ -29,6 +29,9 @@ window.onload = function(){
     esquerda();
     setTimeout(parar, 1000);
   });
+  document.querySelector("#reset").addEventListener("click", function(){
+    reload();
+  });
   document.querySelector("#claro").addEventListener("click", function(){
     document.querySelector("body").style.backgroundColor = "white";
     document.querySelector("canvas").style.backgroundColor = "white";
@@ -195,4 +198,8 @@ function esquerda(){
 function parar(){
   personagemObj.velocidadeX = 0;
   personagemObj.velocidadeY = 0;
+}
+
+function reload(){
+  location.reload();
 }
